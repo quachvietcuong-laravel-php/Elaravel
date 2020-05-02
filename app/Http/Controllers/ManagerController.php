@@ -10,10 +10,20 @@ use App\Checkout;
 use App\Order_Details;
 use App\Total_Product_Details;
 use App\Coupon;
+use PDF;
 
 class ManagerController extends Controller
 {
     //
+    public function getPrintOrder($order_id){
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->print_order_convert($order_id));
+        return $pdf->stream();
+    }
+
+    public function print_order_convert($order_id){
+        return $order_id;
+    }
 
     public function getAllManageOrder(){
     	$order = Order::orderBy('created_at' , 'DESC')->where('status' , '=' , 0)->paginate(10);

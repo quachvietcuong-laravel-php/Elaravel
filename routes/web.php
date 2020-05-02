@@ -246,6 +246,8 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'AdminLoginMiddleware'] , fu
 
 	// Manager 
 	Route::group(['prefix' => 'manager'] , function(){
+		Route::get('/print-order/{order_id}' , 'ManagerController@getPrintOrder');
+
 		Route::get('/all' , 'ManagerController@getAllManageOrder');
 
 		Route::get('all/sending' , 'ManagerController@getAllSendingProductManageOrder');

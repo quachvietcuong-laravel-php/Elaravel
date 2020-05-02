@@ -92,7 +92,11 @@
 		        		@endif
 		        	</h5>
 		          	<small class="text-muted inline m-t-sm m-b-sm">Tổng tiền : {{ $order->total . ' đ' }}</small>
+		          	
 		        </div>
+		        <div class="col-sm-7">
+			        <a style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
+			    </div>
 	      	</div>
     	</footer>
 	</div>
