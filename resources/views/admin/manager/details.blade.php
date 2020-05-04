@@ -95,7 +95,7 @@
 		          	
 		        </div>
 		        <div class="col-sm-7">
-			        <a style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
+			        <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
 			    </div>
 	      	</div>
     	</footer>
