@@ -94,9 +94,11 @@
 		          	<small class="text-muted inline m-t-sm m-b-sm">Tổng tiền : {{ $order->total . ' đ' }}</small>
 		          	
 		        </div>
-		        <div class="col-sm-7">
-			        <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
-			    </div>
+		        @if($order->status == 1)
+		        	<div class="col-sm-7">
+			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
+			    	</div>
+			    @endif
 	      	</div>
     	</footer>
 	</div>
