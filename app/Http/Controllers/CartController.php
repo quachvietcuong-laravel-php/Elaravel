@@ -87,23 +87,33 @@ class CartController extends Controller
                 'code.required' =>  'Bạn chưa nhập mã khuyến mãi'
             ]
         );
-        if($coupon = Coupon::where('code' , $request->code)->where('time' , '<>' , 0)->first()){
-            $cou[] = array(
-            'id'        =>  $coupon->id,
-            'name'      =>  $coupon->name,
-            'code'      =>  $coupon->code,
-            'time'      =>  $coupon->time,
-            'number'    =>  $coupon->number,
-            'condition' =>  $coupon->condition
-            );
-            Session::put('cou' , $cou);
+        if($coupon = Coupon::where('code' , $request->code)->first()){
+            if ($coupon->where('time' , '<>' , 0)) {
+                $end = strtotime($coupon->end);
+                $now = $request->now;
+                if ($now <= $end) {
+                    $cou[] = array(
+                        'id'        =>  $coupon->id,
+                        'name'      =>  $coupon->name,
+                        'code'      =>  $coupon->code,
+                        'time'      =>  $coupon->time,
+                        'number'    =>  $coupon->number,
+                        'condition' =>  $coupon->condition
+                    );
+                    Session::put('cou' , $cou);
 
-            // echo "<pre>";
-            // print_r(Session::get('cou'));
-            // echo "</pre>";
-            return Redirect::to('/cart-show')->with('Success' , 'Thêm mã giảm giá thành công');
+                    // echo "<pre>";
+                    // print_r(Session::get('cou'));
+                    // echo "</pre>";
+                    return Redirect::to('/cart-show')->with('Success' , 'Thêm mã giảm giá thành công');
+                }else{
+                    return Redirect::to('/cart-show')->withErrors('Mã giảm giá đã hết hạn sử dụng');
+                }
+            }else{
+                return Redirect::to('/cart-show')->withErrors('Mã giảm giá đã hết');
+            }
         }else{
-            return Redirect::to('/cart-show')->withErrors('Mã giảm giá không đúng hoặc đã hết');
+            return Redirect::to('/cart-show')->withErrors('Mã giảm giá không đúng');
         }
     }
 

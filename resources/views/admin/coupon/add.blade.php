@@ -26,6 +26,11 @@
                                 <input type="text" class="form-control" name="time" placeholder="Nhập số lượng mã">
                             </div>
                             <div class="form-group">
+                                <label for="exampleInputEmail1">Ngày hết hạn mã</label>
+                                <input type="date" class="form-control" name="end" placeholder="Chọn ngày kết thúc">
+                                <input type="hidden" name="now" value="{{ time() }}">
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Tính năng mã</label>
                                 <select name="condition" class="form-control input-sm m-bot15">
                                     <option value="0">--Chọn tính năng--</option>
@@ -53,6 +58,10 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Số lượng mã</label>
                                 <input type="text" class="form-control" name="time" placeholder="Nhập số lượng mã">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Ngày hết hạn mã</label>
+                                <input type="date" class="form-control" name="end" placeholder="Chọn ngày kết thúc">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tính năng mã</label>

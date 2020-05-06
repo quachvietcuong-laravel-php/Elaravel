@@ -37,7 +37,7 @@
 					<tbody>
 						<?php $i = 0; ?>
 						<form action="{{ URL::to('/cart-update') }}" method="POST">
-							@foreach($content as $ct)
+							@foreach($content as $ct) 
 								<tr>
 									<td class="cart_product">
 										<img width="50px;" src="{{ URL::to('public/uploads/products/' . $ct->options->image)}}" alt="">
@@ -160,7 +160,9 @@
 												@csrf
 												<li style="background: #ffff !important; padding: 0px;">
 													<input class="form-control" style="width: 300px;" placeholder="Nhập mã giảm giá" type="text" name="code"><br>
+													<input type="hidden" name="now" value="{{ time() }}">
 												</li>
+												
 												<input type="submit" value="Áp dụng mã giảm giá" class="btn btn-default check_coupon" name="check_coupon">
 											</form>
 										@endif
@@ -175,6 +177,7 @@
 												@csrf
 												<li style="background: #ffff !important; padding: 0px;">
 													<input class="form-control" style="width: 300px;" placeholder="Nhập mã giảm giá" type="text" name="code"><br>
+													<input type="hidden" name="now" value="{{ time() }}">
 												</li>
 												<input type="submit" value="Áp dụng mã giảm giá" class="btn btn-default check_coupon" name="check_coupon">
 											</form>

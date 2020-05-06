@@ -42,17 +42,24 @@ class CouponController extends Controller
     	}elseif ($check = Coupon::where('code' , $request->code)->first()) {
     		return Redirect::to('admin/coupon/add')->withErrors('Mã giảm giá đã tồn tại');
     	}else{
-    		$coupon = new Coupon;
-	    	$coupon->name = $request->name;
-	    	$coupon->code = $request->code;
-	    	$coupon->time = $request->time;
-	    	$coupon->condition = $request->condition;
-	    	$coupon->number    = $request->number;
-	    	// echo "<pre>";
-	    	// print_r($coupon);
-	    	// echo "</pre>";
-	    	$coupon->save();
-	    	return Redirect::to('admin/coupon/add')->with('Success' , 'Thêm mã sản phẩm thành công');
+            if ($request->now < strtotime($request->end)) {
+                return Redirect::to('admin/coupon/add')->withErrors('Thời gian kết thúc mã không nhỏ hơn thời gian hiện tại');
+            }else{
+                $coupon = new Coupon;
+                $coupon->name = $request->name;
+                $coupon->code = $request->code;
+                $coupon->time = $request->time;
+                $coupon->end  = date('d-m-Y' , strtotime($request->end));
+                $coupon->condition = $request->condition;
+                $coupon->number    = $request->number;
+
+                // echo "<pre>";
+                // print_r($coupon);
+                // echo "</pre>";
+
+                $coupon->save();
+                return Redirect::to('admin/coupon/add')->with('Success' , 'Thêm mã sản phẩm thành công');
+            }
     	}
     }
 

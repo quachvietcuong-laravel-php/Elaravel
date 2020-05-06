@@ -28,6 +28,8 @@
 			            <th>Số lượng</th>
 			            <th>Tính năng mã</th>
 			            <th>Số giảm</th>
+			            <th>Ngày tạo mã</th>
+			            <th>Ngày hết hạn mã</th>
 			            <th style="width:30px;"></th>
 		          	</tr>
 	        	</thead>
@@ -47,14 +49,15 @@
 				            	@endif
 				            </td>
 
-				            <th>
+				            <td>
 				            	@if($cp->condition == 1)
 				            		{{ $cp->number . ' %'}}
 				            	@else
 				            		{{ number_format($cp->number) . ' đ' }}
 				            	@endif
-				            </th>
-
+				            </td>
+				            <td>{{ date('d-m-Y' , strtotime($cp->created_at)) }}</td>
+				            <td>{{ $cp->end }}</td>
 				            <td>
 				              	@if(checkLevel(2))
 				              		<a <?php echo checkLevel(2); ?> href="{{URL::to('admin/coupon/all')}}" class="active" ui-toggle-class="">
