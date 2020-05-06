@@ -15,7 +15,7 @@
                         <form action="{{URL::to('admin/brand-product/add')}}" method="" role="form">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên thương hiệu</label>
-                                <input type="text" class="form-control" name="brand_product_name" placeholder="Nhập tên thương hiệu">
+                                <input type="text" class="form-control" name="brand_product_name"  placeholder="Nhập tên thương hiệu">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Mô tả</label>
@@ -35,7 +35,7 @@
                            	{{ csrf_field() }}
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tên thương hiệu</label>
-                                <input type="text" class="form-control" name="brand_product_name" placeholder="Nhập tên thương hiệu">
+                                <input type="text" class="form-control" name="brand_product_name" value="{{ old('brand_product_name') }}" placeholder="Nhập tên thương hiệu">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Mô tả</label>

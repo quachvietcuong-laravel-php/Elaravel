@@ -30,10 +30,9 @@ class BrandProduct extends Controller
     			'brand_product_desc.min'		=>	'Mô tả phải có ít 3 kí tự',
     			'brand_product_desc.max'		=>	'Mô tả có độ dài tối đa là 300 kí tự',
     		]);
-    	
     	$BrandProduct = new Brand_Product;
 
-    	$BrandProductName = $request->brand_product_name;
+    	$BrandProductName = $request->old('brand_product_name');
     	$checkUniqueBrand = Brand_Product::where('name' , $BrandProductName)->first();
     	if ($checkUniqueBrand) {
     		return Redirect::to('admin/brand-product/add')->withErrors('Tên thương hiệu đã tồn tại');
