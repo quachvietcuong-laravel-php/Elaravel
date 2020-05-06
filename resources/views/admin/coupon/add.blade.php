@@ -62,6 +62,7 @@
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Ngày hết hạn mã</label>
                                 <input type="date" class="form-control" name="end" placeholder="Chọn ngày kết thúc">
+                                <input type="hidden" name="now" value="{{ time() }}">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Tính năng mã</label>

@@ -42,7 +42,7 @@ class CouponController extends Controller
     	}elseif ($check = Coupon::where('code' , $request->code)->first()) {
     		return Redirect::to('admin/coupon/add')->withErrors('Mã giảm giá đã tồn tại');
     	}else{
-            if ($request->now < strtotime($request->end)) {
+            if ($request->now > strtotime($request->end)) {
                 return Redirect::to('admin/coupon/add')->withErrors('Thời gian kết thúc mã không nhỏ hơn thời gian hiện tại');
             }else{
                 $coupon = new Coupon;
