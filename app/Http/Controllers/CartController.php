@@ -9,6 +9,8 @@ use App\Product;
 use App\Category_Product;
 use App\Brand_Product;
 use App\Coupon;
+use App\Color_Details;
+use App\Size_Details;
 use Cart;
 use Session;
 
@@ -17,10 +19,17 @@ class CartController extends Controller
     //
     public function postCartAdd(Request $request){
     	$quanlity  = $request->qty;
-        $color     = $request->color;
-        $size      = $request->size;
+        echo $color     = $request->color;
+        echo $size      = $request->size;
 
     	$pCart     = Product::where('id' , '=' , $request->product_id)->first();
+        $colorName = Color_Details::where('product_id' , $pCart->id)->where('id' , $color)->first();
+        $SizeName  = Size_Details::where('product_id' , $pCart->id)->where('id' , $size)->first();
+
+        // echo "<pre>";
+        // print_r($colorName);
+        // echo "</pre>";
+
     	$cartItem['id']   = $pCart->id;
     	$cartItem['qty']  = $quanlity;
     	$cartItem['name'] = $pCart->name;
@@ -35,10 +44,14 @@ class CartController extends Controller
     	$cartItem['options']['image'] = $pCart->image;
         $cartItem['options']['color'] = $color;
         $cartItem['options']['size']  = $size;
+        $cartItem['options']['color_name'] = $colorName->color->name;
+        $cartItem['options']['size_name']  = $SizeName->name;
+
+    	Cart::add($cartItem);
+
         // echo "<pre>";
         // print_r($cartItem);
         // echo "</pre>";
-    	Cart::add($cartItem);
 
     	return Redirect::to('/cart-show');
     }
@@ -75,6 +88,19 @@ class CartController extends Controller
             // echo "<pre>";
             // print_r(Cart::content());
             // echo "</pre>";
+        }elseif($request->delete_chose){
+            $checked = $request->input('checked' , []);
+            if ($checked) {
+                foreach ($checked as $idCk) {
+                    Cart::remove($idCk);
+                    if (count(Cart::content()) == 0) {
+                        Session::forget('cou');
+                    }
+                }
+                return Redirect::to('/cart-show')->with('Success' , 'Xóa các sản phẩm đã chọn thành công');
+            }else{
+                return Redirect::to('/cart-show')->withErrors('Bạn chưa chọn sản phẩm');
+            }
         }
     }
 

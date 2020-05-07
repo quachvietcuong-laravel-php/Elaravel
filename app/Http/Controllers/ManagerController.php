@@ -125,7 +125,7 @@ class ManagerController extends Controller
                 </thead>
                 <tbody>';
                 foreach ($orderDetailsPDF as $odt) {
-    $output .='
+        $output .='
                     <tr>
                         <td>'.$odt->product_name.'</td>
                         <td>'.$odt->color_details->color->name.'</td>
@@ -135,7 +135,7 @@ class ManagerController extends Controller
                         <td>'.number_format($odt->product_sale_quantity * $odt->product_price).' đ</td>
                     </tr>';
                 }
-    $output .='     
+        $output .='     
                     <tr>
                         <td colspan="6">--------------------------------------------------------------</td>
                     </tr>
@@ -146,7 +146,7 @@ class ManagerController extends Controller
                     <tr>
                         <td colspan="3">Số tiền giảm: '.$subtotalPDF.'</td>
                     </tr>';
-    $output .='
+        $output .='
                 </tbody>
             </table>
             <div style="margin-top:20px;">

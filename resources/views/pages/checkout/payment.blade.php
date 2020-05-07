@@ -8,7 +8,10 @@
 
 <section id="cart_items">
 	<h2 class="title text-center">Thanh toán đơn hàng</h2>
-	<?php alert($errors , session('Success')) ?>
+	<?php 
+		alert($errors , session('Success'));
+		$content = Cart::content(); 
+	?>
 	<div class="">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
@@ -32,25 +35,34 @@
 			<table class="table table-condensed">
 				<thead>
 					<tr class="cart_menu">
+						<td></td>
 						<td class="image">Hình ảnh</td>
 						<td class="description">Tên sản phẩm</td>
+						<td>Kích cỡ</td>
+						<td>Màu</td>
 						<td class="price">Giá</td>
 						<td class="quantity">Số lượng</td>
 						<td class="total">Tổng tiền</td>
 						<td></td>
 					</tr>
 				</thead>
-				<?php $content = Cart::content();  ?>
 				<tbody>
 					<?php $i = 0; ?>
 					<form action="{{ URL::to('/cart-update') }}" method="POST">
-						@foreach($content as $ct)
+						@foreach($content as $ct) 
 							<tr>
+								<td><input type="checkbox" value="{{ $ct->rowId }}" name="checked[]"></td>
 								<td class="cart_product">
 									<img width="50px;" src="{{ URL::to('public/uploads/products/' . $ct->options->image)}}" alt="">
 								</td>
 								<td class="cart_description">
 									<h4>{{ $ct->name }}<h4>
+								</td>
+								<td class="cart_description">
+									<h5>{{ $ct->options->size_name }}</h5>
+								</td>
+								<td class="cart_description">
+									<h5>{{ $ct->options->color_name }}</h5>
 								</td>
 								<td class="cart_price">
 									<p>{{ number_format($ct->price) . ' đ' }}</p>
@@ -72,12 +84,13 @@
 							<?php $i++; ?>
 						@endforeach
 						<tr>
-							<td colspan="6" style="text-align: center;">
+							<td colspan="8" style="text-align: center;">
+								<input type="submit" class="btn btn-primary" name="delete_chose" value="Xóa sản phẩm đã chọn">
 								<input type="submit" class="btn btn-primary" name="delete" value="Xóa tất cả sản phẩm">
 							</td>
 						</tr>
 						<tr>
-							<td colspan="6" style="text-align: center;">
+							<td colspan="8" style="text-align: center;">
 								<input type="hidden" name="count" value="{{ $i }}">
 								<input type="submit" class="btn btn-primary" name="update_all" value="Cập nhật sản phẩm">
 							</td>

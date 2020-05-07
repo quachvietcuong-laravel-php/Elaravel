@@ -117,7 +117,15 @@
                                     <li><a href="{{URL::to('/logout-customers')}}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
                                 @else
                                     <li><a href="{{URL::to('/login-show')}}"><i class="fa fa-crosshairs"></i> Thanh toán</a></li>
-                                    <li><a href="{{URL::to('/cart-show')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                    @if(count(Cart::content()) > 0)
+                                        <li>
+                                            <a href="{{URL::to('/cart-show')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng<sup style="color: red; font-size: 12px;">{{count(Cart::content())}}</sup></a>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{URL::to('/cart-show')}}"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a>
+                                        </li>
+                                    @endif
                                     <li><a href="{{URL::to('/login-show')}}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
                                 @endif
                             </ul>
