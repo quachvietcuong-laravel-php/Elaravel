@@ -19,8 +19,8 @@ class CartController extends Controller
     //
     public function postCartAdd(Request $request){
     	$quanlity  = $request->qty;
-        echo $color     = $request->color;
-        echo $size      = $request->size;
+        $color     = $request->color;
+        $size      = $request->size;
 
     	$pCart     = Product::where('id' , '=' , $request->product_id)->first();
         $colorName = Color_Details::where('product_id' , $pCart->id)->where('id' , $color)->first();
