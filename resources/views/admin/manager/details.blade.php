@@ -78,7 +78,7 @@
 	    </div>
 	    <footer class="panel-footer">
 	      	<div class="row">		
-		        <div class="col-sm-5 text-center">
+		        <div class="col-sm-4 text-center">
 		        	<h5>
 		        		@if($order->coupon_id != 0)
 		        			Mã khuyến mãi: {{ $order->coupon->name }} - Giảm: 
@@ -94,9 +94,20 @@
 		          	<small class="text-muted inline m-t-sm m-b-sm">Tổng tiền : {{ $order->total . ' đ' }}</small>
 		          	
 		        </div>
-		        @if($order->status == 1)
-		        	<div class="col-sm-7">
-			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">In đơn hàng</a>
+		        @if($order->status == 0)
+		        	<div class="col-sm-8">
+			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">Xem đơn hàng</a>
+			    	</div>
+			    @elseif($order->status == 1)
+			    	<div class="col-sm-6">
+			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order/' . $order->id)}}">Xem đơn hàng</a>
+			    	</div>
+			    	<div class="col-sm-2">
+			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order-details/' . $order->id)}}">In đơn hàng</a>
+			    	</div>
+			    @elseif($order->status == 2)
+			    	<div class="col-sm-8">
+			    	    <a target="_blank" style="font-size: 20px; float: right;" href="{{URL::to('admin/manager/print-order-details/' . $order->id)}}">In đơn hàng</a>
 			    	</div>
 			    @endif
 	      	</div>

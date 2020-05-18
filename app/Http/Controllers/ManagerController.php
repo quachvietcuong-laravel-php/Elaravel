@@ -21,6 +21,30 @@ class ManagerController extends Controller
         return $pdf->stream();
     }
 
+    public function getPrintOrderDetails($order_id){
+        $order_pdf       = Order::where('id' , '=' , $order_id)->first();
+        $customersName   = $order_pdf->customers->name;
+        $customersPhone  = $order_pdf->checkout->phone;
+
+        $orderDetailsPDF = Order_Details::where('order_id' , $order_pdf->id)->get();
+        if ($order_pdf->coupon_id == 0) {
+            $couponPDFname = 'Không có mã giảm giá';
+            $couponPDFsale = '';
+            $pdf = PDF::loadView('admin.manager.printorder', compact('order_pdf' , 'orderDetailsPDF' , 'couponPDFname' , 'couponPDFsale'));
+        }else{
+            $couponPDF = Coupon::where('id' , $order_pdf->coupon_id)->first();
+            if ($couponPDF->condition == 1) {
+                $couponPDFname   = $couponPDF->name;
+                $couponPDFsale   = ' - Giảm: ' . $couponPDF->number . '%';
+            }else{
+                $couponPDFname   = $couponPDF->name;
+                $couponPDFsale   = ' - Giảm: ' . number_format($couponPDF->number) . ' đ';
+            }
+            $pdf = PDF::loadView('admin.manager.printorder', compact('order_pdf' , 'orderDetailsPDF' , 'couponPDF' , 'couponPDFname' , 'couponPDFsale'));
+        }
+        return $pdf->download("order=$order_id.Name=$customersName.Phone=$customersPhone.pdf");
+    }
+
     public function print_order_convert($order_id){
         $order_pdf = Order::where('id' , '=' , $order_id)->first();
 
@@ -144,7 +168,20 @@ class ManagerController extends Controller
                         <td rowspan="2" colspan="3">Số tiền cần thanh toán: '.$subtotalPDF.'</td>
                     </tr>
                     <tr>
-                        <td colspan="3">Số tiền giảm: '.$subtotalPDF.'</td>
+                        <td colspan="3">Số tiền giảm:';
+                        if ($order_pdf->coupon_id != 0) {
+                            if ($couponPDF->condition == 1) {
+                                $totalAfter       = str_replace(',', '' , $order_pdf->total);
+                                $totalPriceFormat = str_replace(',', '' , $totalPrice);
+                                $salePrice        = number_format($totalPriceFormat - $totalAfter) . ' đ';
+                            }else{
+                                $salePrice = number_format($couponPDF->number) . ' đ';
+                            }
+                        }else{
+                            $salePrice = "0 đ";
+                        }
+        $output .='          
+                        '.$salePrice.'</td>
                     </tr>';
         $output .='
                 </tbody>
