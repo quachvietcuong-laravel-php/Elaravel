@@ -11,6 +11,7 @@ use App\Size_Details;
 use App\Color_Details;
 use App\Chosen;
 use App\Comment;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -42,7 +43,7 @@ class HomeController extends Controller
 
         $productBrand1  = Product::where('brand_id' , '=' , $productDetail->brand_product->id)->where('category_id' , '=' , $productDetail->category_product->id)->whereNotIn('id' , [$id])->take(3)->get();
         $productBrand2  = Product::where('brand_id' , '=' , $productDetail->brand_product->id)->where('category_id' , '=' , $productDetail->category_product->id)->whereNotIn('id' , [$id])->skip(3)->take(3)->get();
- 
+
         return view('pages.details.product_details' , compact('productDetail' , 'productBrand1' , 'productBrand2' , 'proChosen' , 'commentPro'));
     }
 

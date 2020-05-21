@@ -123,13 +123,12 @@
 				</form>
 			<div class="col-sm-12" style="overflow-y: scroll;height: 400px; margin-top: 20px;">
 				@foreach($commentPro as $cmt)
-				<ul>
-					<li><a href="#"><i class="fa fa-user"></i>{{ $cmt->customers->name }}</a></li>
-					<li><a href="#"><i class="fa fa-clock-o"></i>{{ date('H:i:s' , strtotime($cmt->created_at)) }}</a></li>
-					<li><a href="#"><i class="fa fa-calendar-o"></i>{{ date('d-m-Y'	, strtotime($cmt->created_at)) }}</a></li>
-				</ul>
-				<p>{{ $cmt->content }}</p>
-				<hr>
+					<ul>
+						<li><a href="#"><i class="fa fa-user"></i>{{ $cmt->customers->name }}</a></li>
+						<li><a href="#"><i class="fa fa-clock-o"></i>{{ TimeFormat($cmt->created_at) }}</a></li>
+					</ul>
+					<p>{{ $cmt->content }}</p>
+					<hr>
 				@endforeach
 			</div>
 		</div>		

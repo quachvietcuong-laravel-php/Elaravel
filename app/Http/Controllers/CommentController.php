@@ -11,6 +11,7 @@ use App\Product;
 use App\Size_Details;
 use App\Color_Details;
 use App\Chosen;
+use Carbon\Carbon;
 
 
 class CommentController extends Controller
@@ -54,7 +55,7 @@ class CommentController extends Controller
             $productBrand2  = Product::where('brand_id' , '=' , $productDetail->brand_product->id)->where('category_id' , '=' , $productDetail->category_product->id)->whereNotIn('id' , [$comment->product_id])->skip(3)->take(3)->get();
      
             view('pages.details.product_details' , compact('productDetail' , 'productBrand1' , 'productBrand2' , 'proChosen'));
-            return Redirect::to('/chi-tiet-san-pham/' . $comment->product_id . '/' . $request->slug)->with('Success' , 'Bình luận thành công');
+            return Redirect::to('/chi-tiet-san-pham/' . $comment->product_id . '/' . $request->slug)->with('Success' , 'Bình luận thành công'); 
         }
     }
 }
