@@ -81,6 +81,17 @@
 		          	@endforeach	            
 		        </tbody>
 	      	</table>
+	      	<br>
+	      	<form action="{{ route('import-csv') }}" method="POST" enctype="multipart/form-data">
+	      		@csrf
+	      		<input type="file" name="file" accept=".xlsx"><br>
+	      		<input type="submit" value="Import Excel" name="import_csv" class="btn btn-warning">
+	      	</form>
+	      	<br>
+	      	<form action="{{ route('export-csv') }}" method="POST">
+	      		@csrf
+	      		<input type="submit" value="Export Excel" name="export_csv" class="btn btn-success">
+	      	</form>
 	    </div>
 
 	    <footer class="panel-footer">

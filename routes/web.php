@@ -117,6 +117,9 @@ Route::group(['prefix' => 'admin' , 'middleware' => 'AdminLoginMiddleware'] , fu
 		Route::post('edit/{id}' , 'CategoryProduct@postEditCateProduct');
 
 		Route::get('delete/{id}' , 'CategoryProduct@getDeleteCateProduct');	
+
+		Route::post('/import-csv','CategoryProduct@importCsv')->name('import-csv');
+		Route::post('/export-csv','CategoryProduct@exportCsv')->name('export-csv');
 	});
 	
 

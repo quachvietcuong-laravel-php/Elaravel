@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use App\Category_Product;
 use App\Product;
+use App\Imports\ExcelImports;
+use App\Exports\ExcelExports;
+use Excel;
 
 class CategoryProduct extends Controller
 {
@@ -101,5 +104,15 @@ class CategoryProduct extends Controller
             $delCate = Category_Product::where('id' , $id)->delete();
             return Redirect::to('admin/category-product/all')->with('Success' , 'Xóa danh mục thành công');
         }  
+    }
+
+    public function importCsv(Request $request){
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new ExcelImports, $path);
+        return back()->with('Success' , 'Imports thành công');
+    }
+
+    public function exportCsv(){
+        return Excel::download(new ExcelExports , 'category_export.xlsx');
     }
 }
